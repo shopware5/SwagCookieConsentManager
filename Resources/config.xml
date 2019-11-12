@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="https://raw.githubusercontent.com/shopware/shopware/5.6/engine/Shopware/Components/Plugin/schema/config.xsd">
+
+    <elements>
+        <element type="boolean" scope="shop">
+            <name>show_cookie_note</name>
+            <label lang="de">Cookie Hinweis anzeigen</label>
+            <label lang="en">Show cookie hint</label>
+            <description lang="de">Wenn diese Option aktiv ist, wird eine Hinweismeldung angezeigt die den Nutzer über die Cookie-Richtlinien informiert. Der Inhalt kann über das Textbausteinmodul editiert werden.</description>
+            <description lang="en">If this option is active, a notification message will be displayed informing the user of the cookie guidelines. The content can be edited via the text editor module.</description>
+        </element>
+
+        <element type="select" scope="shop">
+            <name>cookie_note_mode</name>
+            <label lang="de">Cookie-Hinweis-Modus</label>
+            <label lang="en">Cookie notice mode</label>
+            <value>0</value>
+            <store>
+                <option>
+                    <value>0</value>
+                    <label lang="de">Nur Hinweis anzeigen</label>
+                    <label lang="en">Show hint only</label>
+                </option>
+                <option>
+                    <value>1</value>
+                    <label lang="de">Technisch notwendige Cookies erlauben (Browser-Sitzung, CSRF), restliche nach Erlaubnis setzen</label>
+                    <label lang="en">Allow technically necessary cookies (browser session, CSRF), set other cookies after permission</label>
+                </option>
+                <option>
+                    <value>2</value>
+                    <label lang="de">Cookies erst nach Erlaubnis setzen</label>
+                    <label lang="en">Do not set any cookies until you have permission</label>
+                </option>
+            </store>
+        </element>
+
+        <element type="boolean" scope="shop">
+            <name>cookie_show_button</name>
+            <label lang="de">"Alle akzeptieren" Button in Cookie Hinweis anzeigen</label>
+            <label lang="en">Show "Accept all" button in cookie hint</label>
+            <description lang="de">Gilt nur für den Modus "Technisch notwendige Cookies". Bevor Du diese Einstellung änderst, solltest du die Verwendung vorab von Deiner Rechtsberatung prüfen lassen.</description>
+            <description lang="en">Only counts for the mode "Technically necessary cookies". Before you change this setting, you should first have your legal advisor check the use of this setting.</description>
+        </element>
+    </elements>
+</config>
