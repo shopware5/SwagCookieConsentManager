@@ -22,7 +22,7 @@
  * our trademarks remain entirely with us.
  */
 
-namespace SwagCookieConsentManager\Bundle\CookieBundle\Structs;
+namespace Shopware\Bundle\CookieBundle\Structs;
 
 class CookieStruct implements \JsonSerializable
 {
@@ -51,7 +51,13 @@ class CookieStruct implements \JsonSerializable
      */
     private $matchingPattern;
 
-    public function __construct(string $name, string $matchingPattern, string $label, string $groupName = CookieGroupStruct::OTHERS)
+    /**
+     * @param string $name
+     * @param string $matchingPattern
+     * @param string $label
+     * @param string $groupName
+     */
+    public function __construct($name, $matchingPattern, $label, $groupName = CookieGroupStruct::OTHERS)
     {
         $this->name = $name;
         $this->matchingPattern = $matchingPattern;
@@ -59,57 +65,90 @@ class CookieStruct implements \JsonSerializable
         $this->groupName = $groupName;
     }
 
-    public function getName(): string
+    /**
+     * @return string
+     */
+    public function getName()
     {
         return $this->name;
     }
 
-    public function setName(string $name): void
+    /**
+     * @param string $name
+     */
+    public function setName($name)
     {
         $this->name = $name;
     }
 
-    public function getMatchingPattern(): string
+    /**
+     * @return string
+     */
+    public function getMatchingPattern()
     {
         return $this->matchingPattern;
     }
 
-    public function setMatchingPattern(string $matchingPattern): void
+    /**
+     * @param string $matchingPattern
+     */
+    public function setMatchingPattern($matchingPattern)
     {
         $this->matchingPattern = $matchingPattern;
     }
 
-    public function getLabel(): string
+    /**
+     * @return string
+     */
+    public function getLabel()
     {
         return $this->label;
     }
 
-    public function setLabel(string $label): void
+    /**
+     * @param string $label
+     */
+    public function setLabel($label)
     {
         $this->label = $label;
     }
 
-    public function getGroupName(): string
+    /**
+     * @return string
+     */
+    public function getGroupName()
     {
         return $this->groupName;
     }
 
-    public function setGroupName(string $groupName): void
+    /**
+     * @param string $groupName
+     */
+    public function setGroupName($groupName)
     {
         $this->groupName = $groupName;
     }
 
-    public function getGroup(): CookieGroupStruct
+    /**
+     * @return CookieGroupStruct
+     */
+    public function getGroup()
     {
         return $this->group;
     }
 
-    public function setGroup(CookieGroupStruct $group): void
+    /**
+     * @param CookieGroupStruct $group
+     */
+    public function setGroup(CookieGroupStruct $group)
     {
         $this->group = $group;
     }
 
-    public function jsonSerialize(): array
+    /**
+     * @return array
+     */
+    public function jsonSerialize()
     {
         $data = get_object_vars($this);
         unset($data['group']);

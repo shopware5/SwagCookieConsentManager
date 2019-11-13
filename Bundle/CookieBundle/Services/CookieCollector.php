@@ -28,8 +28,8 @@ use SwagCookieConsentManager\Bundle\CookieBundle\CookieCollection;
 use SwagCookieConsentManager\Bundle\CookieBundle\CookieGroupCollection;
 use SwagCookieConsentManager\Bundle\CookieBundle\Exceptions\InvalidCookieGroupItemException;
 use SwagCookieConsentManager\Bundle\CookieBundle\Exceptions\InvalidCookieItemException;
-use SwagCookieConsentManager\Bundle\CookieBundle\Structs\CookieGroupStruct;
-use SwagCookieConsentManager\Bundle\CookieBundle\Structs\CookieStruct;
+use Shopware\Bundle\CookieBundle\Structs\CookieGroupStruct;
+use Shopware\Bundle\CookieBundle\Structs\CookieStruct;
 
 class CookieCollector implements CookieCollectorInterface
 {
@@ -50,9 +50,10 @@ class CookieCollector implements CookieCollectorInterface
     }
 
     /**
+     * {@inheritDoc}
      * @throws InvalidCookieItemException
      */
-    public function collect(): CookieGroupCollection
+    public function collect()
     {
         $cookieGroupsCollection = $this->collectCookieGroups();
 
@@ -76,9 +77,10 @@ class CookieCollector implements CookieCollectorInterface
     }
 
     /**
+     * {@inheritDoc}
      * @throws InvalidCookieGroupItemException
      */
-    public function collectCookieGroups(): CookieGroupCollection
+    public function collectCookieGroups()
     {
         $cookieGroupCollection = new CookieGroupCollection();
 
@@ -96,7 +98,7 @@ class CookieCollector implements CookieCollectorInterface
         return $cookieGroupCollection;
     }
 
-    private function assignCookiesToGroups(CookieCollection $cookieCollection, CookieGroupCollection $cookieGroupCollection): void
+    private function assignCookiesToGroups(CookieCollection $cookieCollection, CookieGroupCollection $cookieGroupCollection)
     {
         /** @var CookieStruct $cookie */
         foreach ($cookieCollection as $cookie) {
@@ -107,7 +109,7 @@ class CookieCollector implements CookieCollectorInterface
         }
     }
 
-    private function addDefaultGroups(CookieGroupCollection $cookieGroupCollection): void
+    private function addDefaultGroups(CookieGroupCollection $cookieGroupCollection)
     {
         $snippetNamespace = $this->snippetManager->getNamespace('frontend/cookie_consent/groups');
 
@@ -118,7 +120,7 @@ class CookieCollector implements CookieCollectorInterface
         $cookieGroupCollection->add(new CookieGroupStruct(CookieGroupStruct::OTHERS, $snippetNamespace->get('others/title')));
     }
 
-    private function addDefaultCookies(CookieCollection $cookieCollection): void
+    private function addDefaultCookies(CookieCollection $cookieCollection)
     {
         $snippetNamespace = $this->snippetManager->getNamespace('frontend/cookie_consent/cookies');
 

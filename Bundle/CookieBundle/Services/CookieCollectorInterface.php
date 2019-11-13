@@ -28,7 +28,13 @@ use SwagCookieConsentManager\Bundle\CookieBundle\CookieGroupCollection;
 
 interface CookieCollectorInterface
 {
-    public function collect(): CookieGroupCollection;
+    /**
+     * @return CookieGroupCollection
+     */
+    public function collect();
 
-    public function collectCookieGroups(): CookieGroupCollection;
+    /**
+     * @return CookieGroupCollection
+     */
+    public function collectCookieGroups();
 }

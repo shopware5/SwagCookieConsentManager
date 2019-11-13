@@ -14,5 +14,7 @@
 
             <tag name="shopware.event_subscriber" />
         </service>
+
+        <service id="SwagCookieConsentManager\Services\ModifiedConfigFactory" decorates="config_factory" />
     </services>
 </container>
