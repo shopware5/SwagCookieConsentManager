@@ -1,4 +1,4 @@
-;(function ($, window, stateManager, undefined) {
+;(function ($, window, undefined) {
     'use strict';
 
     $.getCookiePreference = function(cookieName) {
@@ -55,7 +55,7 @@
              * @property closeModalSelector
              * @type {String}
              */
-            closeModalSelector: '.cookie-consent--header-cross',
+            closeModalSelector: '.cookie-consent--close',
 
             /**
              * Selector of the element that wraps around each group.
@@ -215,19 +215,24 @@
 
         openConsentManager: function () {
             this.open();
-            this.cookiePermissionPlugin.hideElement();
+
+            if (window.cookieRemoval !== 2) {
+                this.cookiePermissionPlugin.hideElement();
+            }
         },
 
-        buildCookiePreferences: function () {
+        buildCookiePreferences: function (allTrue) {
             var opts = this.opts,
                 cookieGroups = this.$el.find(this.opts.cookieGroupSelector),
                 preferences = { 'groups': {}},
                 date = new Date(),
                 uniqueNames = [];
 
+            allTrue = allTrue || false;
+
             cookieGroups.each(function (index, cookieGroup) {
                 var groupName = $(cookieGroup).find(opts.cookieGroupNameSelector).val(),
-                    isActive = $(cookieGroup).find(opts.cookieGroupToggleInputSelector).is(':checked'),
+                    isActive = allTrue ? allTrue : $(cookieGroup).find(opts.cookieGroupToggleInputSelector).is(':checked'),
                     cookies = $(cookieGroup).find(opts.cookieContainerSelector);
 
                 uniqueNames.push(groupName);
@@ -243,7 +248,7 @@
 
                 cookies.each(function (cookieIndex, cookie) {
                     var cookieName = $(cookie).find(opts.cookieNameSelector).val(),
-                        isCookieActive = $(cookie).find(opts.cookieActiveInputSelector).is(':checked');
+                        isCookieActive = allTrue ? allTrue : $(cookie).find(opts.cookieActiveInputSelector).is(':checked');
 
                     uniqueNames.push(cookieName);
 
@@ -380,8 +385,8 @@
         }
     });
 
-    stateManager.addPlugin('*[data-cookie-consent-manager="true"]', 'swCookieConsentManager');
-})(jQuery, window, StateManager);
+    window.StateManager.addPlugin('*[data-cookie-consent-manager="true"]', 'swCookieConsentManager');
+})(jQuery, window);
 
 function openCookieConsentManager () {
     var plugin = $('*[data-cookie-consent-manager="true"]').data('plugin_swCookieConsentManager');

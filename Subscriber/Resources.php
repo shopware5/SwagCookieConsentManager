@@ -16,21 +16,28 @@ class Resources implements SubscriberInterface
     /**
      * @param string $pluginPath
      */
-    public function __construct(string $pluginPath)
+    public function __construct($pluginPath)
     {
         $this->pluginPath = $pluginPath;
     }
 
-    public static function getSubscribedEvents(): array
+    /**
+     * @return array
+     */
+    public static function getSubscribedEvents()
     {
         return [
             'Theme_Inheritance_Template_Directories_Collected' => 'themeDirectoriesCollected',
             'Theme_Compiler_Collect_Plugin_Javascript' => 'getJavascript',
-            'Theme_Compiler_Collect_Plugin_Less' => 'getLessFiles'
+            'Theme_Compiler_Collect_Plugin_Less' => 'getLessFiles',
+            'Theme_Compiler_Collect_Javascript_Files_FilterResult' => 'filterJsFiles'
         ];
     }
 
-    public function themeDirectoriesCollected(\Enlight_Event_EventArgs $args): array
+    /**
+     * @return array
+     */
+    public function themeDirectoriesCollected(\Enlight_Event_EventArgs $args)
     {
         $directories = $args->getReturn();
 
@@ -38,7 +45,10 @@ class Resources implements SubscriberInterface
         return $directories;
     }
 
-    public function getJavascript(): ArrayCollection
+    /**
+     * @return ArrayCollection
+     */
+    public function getJavascript()
     {
         $jsDir = $this->pluginPath . '/Resources/frontend/_public/src/js/';
         $collection = new ArrayCollection([
@@ -48,7 +58,10 @@ class Resources implements SubscriberInterface
         return $collection;
     }
 
-    public function getLessFiles(): ArrayCollection
+    /**
+     * @return ArrayCollection
+     */
+    public function getLessFiles()
     {
         $lessDir = $this->pluginPath . '/Resources/frontend/_public/src/less/';
 
@@ -60,5 +73,29 @@ class Resources implements SubscriberInterface
         );
 
         return new ArrayCollection([$less]);
+    }
+
+    /**
+     * Insert our state-manager adjustment file right after the original state-manager file.
+     *
+     * @return array
+     */
+    public function filterJsFiles(\Enlight_Event_EventArgs $args)
+    {
+        $files = $args->getReturn();
+        $stateManagerIndex = null;
+
+        foreach ($files as $key => $javascriptPath) {
+            if (stripos($javascriptPath, 'themes/Frontend/Responsive/frontend/_public/src/js/jquery.state-manager.js') !== false) {
+                $stateManagerIndex = $key;
+                break;
+            }
+        }
+
+        if ($stateManagerIndex !== null) {
+            array_splice($files, $stateManagerIndex + 1, 0, $this->pluginPath . '/Resources/frontend/_public/src/js/jquery.modify-state-manager.js');
+        }
+
+        return $files;
     }
 }

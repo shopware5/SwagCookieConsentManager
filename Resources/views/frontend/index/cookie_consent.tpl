@@ -3,13 +3,11 @@
 <div id='cookie-consent' class='off-canvas is--left' data-cookie-consent-manager='true'>
     {block name='frontend_index_cookie_consent_manager_content'}
         {block name='frontend_index_cookie_consent_manager_header'}
-            <div class='cookie-consent--header'>
+            <div class='cookie-consent--header cookie-consent--close'>
                 {s name="manager/title"}{/s}
 
-                <div class='cookie-consent--header-cross'>
-                    <i class="icon--cross"></i>
-                </div>
-           </div>
+                <i class="icon--arrow-right"></i>
+            </div>
         {/block}
 
         {block name='frontend_index_cookie_consent_manager_description'}
@@ -20,28 +18,28 @@
 
         {if $cookieGroups}
             {block name='frontend_index_cookie_consent_manager_configuration'}
-                    <div class='cookie-consent--configuration'>
-                        {block name="frontend_index_cookie_consent_manager_configuration_header"}
-                            <div class='cookie-consent--configuration-header'>
-                                <div class='cookie-consent--configuration-header-text'>{s name="manager/configuration/title"}{/s}</div>
-                            </div>
-                        {/block}
+                <div class='cookie-consent--configuration'>
+                    {block name="frontend_index_cookie_consent_manager_configuration_header"}
+                        <div class='cookie-consent--configuration-header'>
+                            <div class='cookie-consent--configuration-header-text'>{s name="manager/configuration/title"}{/s}</div>
+                        </div>
+                    {/block}
 
-                        {block name="frontend_index_cookie_consent_manager_configuration_container"}
-                            <div class='cookie-consent--configuration-main'>
-                                {foreach $cookieGroups as $cookieGroup}
-                                    {if $cookieGroup['cookies']|count}
-                                       {include file="frontend/index/cookie_consent/group.tpl"}
-                                    {/if}
-                                {/foreach}
-                            </div>
-                        {/block}
-                    </div>
+                    {block name="frontend_index_cookie_consent_manager_configuration_container"}
+                        <div class='cookie-consent--configuration-main'>
+                            {foreach $cookieGroups as $cookieGroup}
+                                {if $cookieGroup['cookies']|count}
+                                    {include file="frontend/index/cookie_consent/group.tpl"}
+                                {/if}
+                            {/foreach}
+                        </div>
+                    {/block}
+                </div>
             {/block}
 
             {block name="frontend_index_cookie_consent_manager_save"}
                 <div class="cookie-consent--save">
-                    <input class="cookie-consent--save-button btn is--secondary" type="button" value="{s name="manager/save"}{/s}" />
+                    <input class="cookie-consent--save-button btn is--primary" type="button" value="{s name="manager/save"}{/s}" />
                 </div>
             {/block}
         {/if}

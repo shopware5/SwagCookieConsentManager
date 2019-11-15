@@ -23,12 +23,12 @@ class Installer
         $this->connection = $connection;
     }
 
-    public function install(): void
+    public function install()
     {
         $this->installShopPage();
     }
 
-    private function installShopPage(): void
+    private function installShopPage()
     {
         $this->connection->exec(
             file_get_contents(__DIR__ . '/assets/shop_pages.sql')

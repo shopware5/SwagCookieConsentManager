@@ -1,0 +1,37 @@
+.page-wrap--cookie-permission .cookie-permission--container {
+    .cookie-permission--button.cookie-permission--extra-button .cookie-permission--accept-button {
+        .unitize(margin-right, 5);
+    }
+
+    .cookie-permission--accept-button,
+    .cookie-permission--decline-button,
+    .cookie-permission--configure-button {
+        .unitize(margin-top, 10);
+    }
+}
+
+@media screen and (min-width: @phoneLandscapeViewportWidth) {
+    .page-wrap--cookie-permission .cookie-permission--container {
+        .cookie-permission--accept-button,
+        .cookie-permission--decline-button,
+        .cookie-permission--configure-button {
+            margin-top: 0;
+        }
+    }
+}
+
+@media screen and (min-width: @tabletLandscapeViewportWidth) {
+    .page-wrap--cookie-permission .cookie-permission--container.cookie-mode--1 {
+        .cookie-permission--content {
+            width: ~"calc(100% - 240px)";
+
+            &.cookie-permission--extra-button {
+                width: ~"calc(100% - 370px)";
+            }
+        }
+
+        .cookie-permission--button.cookie-permission--extra-button {
+            .unitize-width(370);
+        }
+    }
+}
