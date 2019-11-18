@@ -4,7 +4,7 @@
 
     <elements>
         <element type="boolean" scope="shop">
-            <name>show_cookie_note</name>
+            <name>swag_cookie.show_cookie_note</name>
             <label lang="de">Cookie Hinweis anzeigen</label>
             <label lang="en">Show cookie hint</label>
             <description lang="de">Wenn diese Option aktiv ist, wird eine Hinweismeldung angezeigt die den Nutzer über die Cookie-Richtlinien informiert. Der Inhalt kann über das Textbausteinmodul editiert werden.</description>
@@ -12,7 +12,7 @@
         </element>
 
         <element type="select" scope="shop">
-            <name>cookie_note_mode</name>
+            <name>swag_cookie.cookie_note_mode</name>
             <label lang="de">Cookie-Hinweis-Modus</label>
             <label lang="en">Cookie notice mode</label>
             <value>0</value>
@@ -36,7 +36,7 @@
         </element>
 
         <element type="boolean" scope="shop">
-            <name>cookie_show_button</name>
+            <name>swag_cookie.cookie_show_button</name>
             <label lang="de">"Alle akzeptieren" Button in Cookie Hinweis anzeigen</label>
             <label lang="en">Show "Accept all" button in cookie hint</label>
             <description lang="de">Gilt nur für den Modus "Technisch notwendige Cookies". Bevor Du diese Einstellung änderst, solltest du die Verwendung vorab von Deiner Rechtsberatung prüfen lassen.</description>
