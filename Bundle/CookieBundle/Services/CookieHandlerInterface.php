@@ -29,9 +29,21 @@ use SwagCookieConsentManager\Bundle\CookieBundle\CookieGroupCollection;
 
 interface CookieHandlerInterface
 {
-    public function getCookies(): CookieGroupCollection;
+    /**
+     * @return CookieGroupCollection
+     */
+    public function getCookies();
 
-    public function getTechnicallyRequiredCookies(): CookieCollection;
+    /**
+     * @return CookieCollection
+     */
+    public function getTechnicallyRequiredCookies();
 
-    public function isCookieAllowedByPreferences(string $cookieName, array $preferences): bool;
+    /**
+     * @param string $cookieName
+     * @param array $preferences
+     *
+     * @return bool
+     */
+    public function isCookieAllowedByPreferences($cookieName, array $preferences);
 }
