@@ -25,11 +25,14 @@
 namespace SwagCookieConsentManager\Bundle\CookieBundle;
 
 use Doctrine\Common\Collections\ArrayCollection;
-use SwagCookieConsentManager\Bundle\CookieBundle\Structs\CookieStruct;
+use Shopware\Bundle\CookieBundle\Structs\CookieStruct;
 
 class CookieCollection extends ArrayCollection implements \JsonSerializable
 {
-    public function isValid(): bool
+    /**
+     * @return bool
+     */
+    public function isValid()
     {
         foreach ($this as $cookieStruct) {
             if (!$cookieStruct instanceof CookieStruct) {
@@ -40,14 +43,24 @@ class CookieCollection extends ArrayCollection implements \JsonSerializable
         return true;
     }
 
-    public function hasCookieWithName(string $cookieName): bool
+    /**
+     * @param string $cookieName
+     *
+     * @return bool
+     */
+    public function hasCookieWithName($cookieName)
     {
-        return $this->exists(static function (string $key, CookieStruct $cookieStruct) use ($cookieName) {
+        return $this->exists(static function ($key, CookieStruct $cookieStruct) use ($cookieName) {
             return preg_match($cookieStruct->getMatchingPattern(), $cookieName) === 1;
         });
     }
 
-    public function getCookieByName(string $cookieName): ?CookieStruct
+    /**
+     * @param string $cookieName
+     *
+     * @return CookieStruct|null
+     */
+    public function getCookieByName($cookieName)
     {
         /** @var CookieStruct $cookieStruct */
         foreach ($this as $cookieStruct) {
@@ -61,7 +74,10 @@ class CookieCollection extends ArrayCollection implements \JsonSerializable
         return null;
     }
 
-    public function jsonSerialize(): array
+    /**
+     * @return array
+     */
+    public function jsonSerialize()
     {
         return $this->toArray();
     }

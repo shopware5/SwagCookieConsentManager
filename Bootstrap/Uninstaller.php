@@ -18,23 +18,32 @@ class Uninstaller
      */
     private $connection;
 
-    public function __construct(UninstallContext $installContext, Connection $connection)
+    /**
+     * @var string
+     */
+    private $isShopware563;
+
+    public function __construct(UninstallContext $installContext, Connection $connection, $isShopware563)
     {
         $this->installContext = $installContext;
         $this->connection = $connection;
+        $this->isShopware563 = $isShopware563;
     }
 
-    public function uninstall(): void
+    public function uninstall()
     {
+        if ($this->isShopware563) {
+            return;
+        }
+
         $this->removeShopPage();
     }
 
-    private function removeShopPage(): void
+    private function removeShopPage()
     {
         $sql = <<<SQL
             DELETE FROM `s_cms_static`
-            WHERE `description` = 'Cookie Einstellungen'
-              AND `link` = 'javascript:openCookieConsentManager()';
+            WHERE `link` = 'javascript:openCookieConsentManager()';
 SQL;
 
         $this->connection->exec($sql);

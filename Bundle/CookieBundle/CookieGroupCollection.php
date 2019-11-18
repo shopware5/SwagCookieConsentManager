@@ -26,12 +26,15 @@ namespace SwagCookieConsentManager\Bundle\CookieBundle;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use SwagCookieConsentManager\Bundle\CookieBundle\Exceptions\NoCookieGroupByNameKnownException;
-use SwagCookieConsentManager\Bundle\CookieBundle\Structs\CookieGroupStruct;
-use SwagCookieConsentManager\Bundle\CookieBundle\Structs\CookieStruct;
+use Shopware\Bundle\CookieBundle\Structs\CookieGroupStruct;
+use Shopware\Bundle\CookieBundle\Structs\CookieStruct;
 
 class CookieGroupCollection extends ArrayCollection implements \JsonSerializable
 {
-    public function isValid(): bool
+    /**
+     * @return bool
+     */
+    public function isValid()
     {
         foreach ($this as $cookieGroupStruct) {
             if (!$cookieGroupStruct instanceof CookieGroupStruct) {
@@ -42,7 +45,12 @@ class CookieGroupCollection extends ArrayCollection implements \JsonSerializable
         return true;
     }
 
-    public function matchCookieByName(string $cookieName): ?CookieStruct
+    /**
+     * @param string $cookieName
+     *
+     * @return CookieStruct|null
+     */
+    public function matchCookieByName($cookieName)
     {
         /** @var CookieGroupStruct $cookieGroup */
         foreach ($this as $cookieGroup) {
@@ -57,9 +65,12 @@ class CookieGroupCollection extends ArrayCollection implements \JsonSerializable
     }
 
     /**
+     * @param string $groupName
+     *
+     * @return CookieStruct
      * @throws NoCookieGroupByNameKnownException
      */
-    public function getGroupByName(string $groupName): CookieGroupStruct
+    public function getGroupByName($groupName)
     {
         $cookieGroupCollection = $this->filter(static function (CookieGroupStruct $cookieGroupStruct) use ($groupName) {
             return $cookieGroupStruct->getName() === $groupName;

@@ -1,4 +1,4 @@
-<?php declare(strict_types=1);
+<?php
 /**
  * Shopware 5
  * Copyright (c) shopware AG
@@ -24,9 +24,7 @@
 
 namespace SwagCookieConsentManager\Bundle\CookieBundle\Services;
 
-use SwagCookieConsentManager\Bundle\CookieBundle\CookieCollection;
-use SwagCookieConsentManager\Bundle\CookieBundle\CookieGroupCollection;
-use SwagCookieConsentManager\Bundle\CookieBundle\Structs\CookieGroupStruct;
+use Shopware\Bundle\CookieBundle\Structs\CookieGroupStruct;
 
 class CookieHandler implements CookieHandlerInterface
 {
@@ -42,17 +40,26 @@ class CookieHandler implements CookieHandlerInterface
         $this->cookieCollector = $cookieCollector;
     }
 
-    public function getCookies(): CookieGroupCollection
+    /**
+     * {@inheritDoc}
+     */
+    public function getCookies()
     {
         return $this->cookieCollector->collect();
     }
 
-    public function getTechnicallyRequiredCookies(): CookieCollection
+    /**
+     * {@inheritDoc}
+     */
+    public function getTechnicallyRequiredCookies()
     {
         return $this->cookieCollector->collect()->getGroupByName(CookieGroupStruct::TECHNICAL)->getCookies();
     }
 
-    public function isCookieAllowedByPreferences(string $cookieName, array $preferences): bool
+    /**
+     * {@inheritDoc}
+     */
+    public function isCookieAllowedByPreferences($cookieName, array $preferences)
     {
         $foundCookie = $this->getCookies()->matchCookieByName($cookieName);
 
