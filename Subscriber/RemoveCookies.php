@@ -27,11 +27,10 @@ namespace SwagCookieConsentManager\Subscriber;
 use Enlight\Event\SubscriberInterface;
 use Enlight_Controller_Request_RequestHttp as Request;
 use Shopware_Components_Config as Config;
-use Enlight_Controller_Response_ResponseHttp as Response;
+use SwagCookieConsentManager\Services\EnlightResponseCookieModified as Response;
 use SwagCookieConsentManager\Bundle\CookieBundle\CookieGroupCollection;
 use SwagCookieConsentManager\Bundle\CookieBundle\Services\CookieHandler;
 use SwagCookieConsentManager\Bundle\CookieBundle\Services\CookieHandlerInterface;
-use Symfony\Component\HttpFoundation\Cookie;
 
 class RemoveCookies implements SubscriberInterface
 {
@@ -61,7 +60,10 @@ class RemoveCookies implements SubscriberInterface
         $this->cookieHandler = $cookieHandler;
     }
 
-    public static function getSubscribedEvents(): array
+    /**
+     * @return array
+     */
+    public static function getSubscribedEvents()
     {
         return [
             'Enlight_Controller_Action_PostDispatch_Frontend' => 'onPostDispatch',
@@ -69,7 +71,7 @@ class RemoveCookies implements SubscriberInterface
         ];
     }
 
-    public function onPostDispatch(\Enlight_Controller_ActionEventArgs $args): void
+    public function onPostDispatch(\Enlight_Controller_ActionEventArgs $args)
     {
         if (!$this->cookieRemovalActive) {
             return;
@@ -107,7 +109,7 @@ class RemoveCookies implements SubscriberInterface
         }
     }
 
-    private function removeCookiesFromPreferences(Request $request, Response $response): void
+    private function removeCookiesFromPreferences(Request $request, Response $response)
     {
         $preferences = $request->getCookie(CookieHandler::PREFERENCES_COOKIE_NAME);
 
@@ -119,21 +121,21 @@ class RemoveCookies implements SubscriberInterface
 
         $preferences = json_decode($preferences, true);
 
-        $this->removeCookies($request, $response, function (string $cookieName) use ($preferences) {
+        $this->removeCookies($request, $response, function ($cookieName) use ($preferences) {
             return $this->cookieHandler->isCookieAllowedByPreferences($cookieName, $preferences);
         });
     }
 
-    private function removeAllCookies(Request $request, Response $response): void
+    private function removeAllCookies(Request $request, Response $response)
     {
         $technicallyRequiredCookies = $this->cookieHandler->getTechnicallyRequiredCookies();
 
-        $this->removeCookies($request, $response, static function (string $cookieKey) use ($technicallyRequiredCookies) {
+        $this->removeCookies($request, $response, static function ($cookieKey) use ($technicallyRequiredCookies) {
             return $technicallyRequiredCookies->hasCookieWithName($cookieKey);
         });
     }
 
-    private function removeCookies(Request $request, Response $response, callable $validationFunction): void
+    private function removeCookies(Request $request, Response $response, callable $validationFunction)
     {
         $requestCookies = $request->getCookie();
         $cookieBasePath = $request->getBasePath();
@@ -148,26 +150,29 @@ class RemoveCookies implements SubscriberInterface
                     continue;
                 }
 
-                $response->headers->removeCookie($responseCookie['name']);
-                $response->headers->removeCookie($responseCookie['name'], $cookieBasePath);
-                $response->headers->removeCookie($responseCookie['name'], $cookiePath);
-                $response->headers->removeCookie($responseCookie['name'], $currentPath);
-                $response->headers->removeCookie($responseCookie['name'], $currentPathWithoutSlash);
+                $response->removeCookie($responseCookie['name']);
+                $response->removeCookie($responseCookie['name'], $cookieBasePath);
+                $response->removeCookie($responseCookie['name'], $cookiePath);
+                $response->removeCookie($responseCookie['name'], $currentPath);
+                $response->removeCookie($responseCookie['name'], $currentPathWithoutSlash);
             }
         }
 
         foreach ($requestCookies as $cookieKey => $cookieName) {
             if (!$validationFunction($cookieKey)) {
-                $response->headers->setCookie(new Cookie($cookieKey, null, 0));
-                $response->headers->setCookie(new Cookie($cookieKey, null, 0, $cookieBasePath));
-                $response->headers->setCookie(new Cookie($cookieKey, null, 0, $cookiePath));
-                $response->headers->setCookie(new Cookie($cookieKey, null, 0, $currentPath));
-                $response->headers->setCookie(new Cookie($cookieKey, null, 0, $currentPathWithoutSlash));
+                $response->setCookie($cookieKey, null, 0);
+                $response->setCookie($cookieKey, null, 0, $cookieBasePath);
+                $response->setCookie($cookieKey, null, 0, $cookiePath);
+                $response->setCookie($cookieKey, null, 0, $currentPath);
+                $response->setCookie($cookieKey, null, 0, $currentPathWithoutSlash);
             }
         }
     }
 
-    private function convertToArray(CookieGroupCollection $cookieGroupCollection): array
+    /**
+     * @return array
+     */
+    private function convertToArray(CookieGroupCollection $cookieGroupCollection)
     {
         return json_decode(json_encode($cookieGroupCollection), true);
     }

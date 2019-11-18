@@ -22,17 +22,17 @@
  * our trademarks remain entirely with us.
  */
 
-namespace SwagCookieConsentManager\Bundle\CookieBundle\Structs;
+namespace Shopware\Bundle\CookieBundle\Structs;
 
 use SwagCookieConsentManager\Bundle\CookieBundle\CookieCollection;
 
 class CookieGroupStruct implements \JsonSerializable
 {
-    public const TECHNICAL = 'technical';
-    public const COMFORT = 'comfort';
-    public const PERSONALIZATION = 'personalization';
-    public const STATISTICS = 'statistics';
-    public const OTHERS = 'others';
+    const TECHNICAL = 'technical';
+    const COMFORT = 'comfort';
+    const PERSONALIZATION = 'personalization';
+    const STATISTICS = 'statistics';
+    const OTHERS = 'others';
 
     /**
      * @var string
@@ -61,7 +61,13 @@ class CookieGroupStruct implements \JsonSerializable
      */
     private $required;
 
-    public function __construct(string $name, string $label, string $description = '', bool $required = false)
+    /**
+     * @param string $name
+     * @param string $label
+     * @param string $description
+     * @param bool $required
+     */
+    public function __construct($name, $label, $description = '', $required = false)
     {
         $this->name = $name;
         $this->label = $label;
@@ -70,52 +76,82 @@ class CookieGroupStruct implements \JsonSerializable
         $this->cookies = new CookieCollection();
     }
 
-    public function getName(): string
+    /**
+     * @return string
+     */
+    public function getName()
     {
         return $this->name;
     }
 
-    public function setName(string $name): void
+    /**
+     * @param string $name
+     */
+    public function setName($name)
     {
         $this->name = $name;
     }
 
-    public function getLabel(): string
+    /**
+     * @return string
+     */
+    public function getLabel()
     {
         return $this->label;
     }
 
-    public function setLabel(string $label): void
+    /**
+     * @param string $label
+     */
+    public function setLabel($label)
     {
         $this->label = $label;
     }
 
-    public function getDescription(): string
+    /**
+     * @return string
+     */
+    public function getDescription()
     {
         return $this->description;
     }
 
-    public function setDescription(string $description): void
+    /**
+     * @param string $description
+     */
+    public function setDescription($description)
     {
         $this->description = $description;
     }
 
-    public function isRequired(): bool
+    /**
+     * @return bool
+     */
+    public function isRequired()
     {
         return $this->required;
     }
 
-    public function getCookies(): CookieCollection
+    /**
+     * @return CookieCollection
+     */
+    public function getCookies()
     {
         return $this->cookies;
     }
 
-    public function addCookie(CookieStruct $cookieStruct): void
+    /**
+     * @param CookieStruct $cookieStruct
+     */
+    public function addCookie(CookieStruct $cookieStruct)
     {
         $this->cookies->add($cookieStruct);
     }
 
-    public function jsonSerialize(): array
+    /**
+     * @return array
+     */
+    public function jsonSerialize()
     {
         return get_object_vars($this);
     }

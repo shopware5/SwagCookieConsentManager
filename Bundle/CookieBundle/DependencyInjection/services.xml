@@ -5,13 +5,13 @@
            xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
 
     <services>
-        <service id="SwagCookieConsentManager\Bundle\CookieBundle\Services\CookieCollector">
+        <service id="swag_cookie_consent_manager_bundle_cookie.services.cookie_collector" class="SwagCookieConsentManager\Bundle\CookieBundle\Services\CookieCollector">
             <argument id="events" type="service" />
             <argument id="snippets" type="service" />
         </service>
 
-        <service id="SwagCookieConsentManager\Bundle\CookieBundle\Services\CookieHandler">
-            <argument id="SwagCookieConsentManager\Bundle\CookieBundle\Services\CookieCollector" type="service" />
+        <service id="swag_cookie_consent_manager_bundle_cookie.services.cookie_handler" class="SwagCookieConsentManager\Bundle\CookieBundle\Services\CookieHandler">
+            <argument id="swag_cookie_consent_manager_bundle_cookie.services.cookie_collector" type="service" />
         </service>
     </services>
 </container>
