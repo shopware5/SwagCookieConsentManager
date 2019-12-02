@@ -43,7 +43,8 @@ class Resources implements SubscriberInterface
     {
         $jsDir = $this->pluginPath . '/Resources/frontend/_public/src/js/';
         $collection = new ArrayCollection([
-            $jsDir . 'jquery.cookie-consent-manager.js'
+            $jsDir . 'jquery.cookie-consent-manager.js',
+            $jsDir . 'jquery.cookie-permission.js',
         ]);
 
         return $collection;
