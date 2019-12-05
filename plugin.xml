@@ -5,9 +5,14 @@
     <label lang="de">Cookie Consent Manager</label>
     <label lang="en">Cookie Consent Manager</label>
 
-    <version>1.2.0</version>
+    <version>1.2.1</version>
     <copyright>(c) by shopware AG</copyright>
     <author>shopware AG</author>
     <link>http://store.shopware.com</link>
     <compatibility minVersion="5.3.5" maxVersion="5.3.7"/>
+
+    <changelog version="1.2.1">
+        Changed namespace from `CookieCollection` and `CookieGroupCollection` to `\Shopware\Bundle\CookieBundle\`
+    </changelog>
+
 </plugin>
