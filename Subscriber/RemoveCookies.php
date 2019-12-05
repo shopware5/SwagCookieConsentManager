@@ -28,10 +28,9 @@ use Enlight\Event\SubscriberInterface;
 use Enlight_Controller_Request_RequestHttp as Request;
 use Shopware_Components_Config as Config;
 use Enlight_Controller_Response_ResponseHttp as Response;
-use SwagCookieConsentManager\Bundle\CookieBundle\CookieGroupCollection;
-use SwagCookieConsentManager\Bundle\CookieBundle\Services\CookieHandler;
-use SwagCookieConsentManager\Bundle\CookieBundle\Services\CookieHandlerInterface;
-use Symfony\Component\HttpFoundation\Cookie;
+use Shopware\Bundle\CookieBundle\CookieGroupCollection;
+use Shopware\Bundle\CookieBundle\Services\CookieHandler;
+use Shopware\Bundle\CookieBundle\Services\CookieHandlerInterface;
 
 class RemoveCookies implements SubscriberInterface
 {
