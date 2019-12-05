@@ -22,7 +22,7 @@
  * our trademarks remain entirely with us.
  */
 
-namespace SwagCookieConsentManager\Bundle\CookieBundle\Services;
+namespace Shopware\Bundle\CookieBundle\Services;
 
 use Shopware\Bundle\CookieBundle\Structs\CookieGroupStruct;
 
