@@ -22,7 +22,7 @@
  * our trademarks remain entirely with us.
  */
 
-namespace SwagCookieConsentManager\Bundle\CookieBundle;
+namespace Shopware\Bundle\CookieBundle;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Shopware\Bundle\CookieBundle\Structs\CookieStruct;
