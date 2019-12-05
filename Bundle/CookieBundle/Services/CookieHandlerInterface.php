@@ -22,10 +22,10 @@
  * our trademarks remain entirely with us.
  */
 
-namespace SwagCookieConsentManager\Bundle\CookieBundle\Services;
+namespace Shopware\Bundle\CookieBundle\Services;
 
-use SwagCookieConsentManager\Bundle\CookieBundle\CookieCollection;
-use SwagCookieConsentManager\Bundle\CookieBundle\CookieGroupCollection;
+use Shopware\Bundle\CookieBundle\CookieCollection;
+use Shopware\Bundle\CookieBundle\CookieGroupCollection;
 
 interface CookieHandlerInterface
 {

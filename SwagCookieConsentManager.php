@@ -14,7 +14,7 @@ use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Loader\XmlFileLoader;
 
 $loader = new Psr4ClassLoader();
-$loader->addPrefix('Shopware\Bundle\CookieBundle\Structs', __DIR__ . '/Bundle/CookieBundle/Structs/');
+$loader->addPrefix('Shopware\Bundle\CookieBundle', __DIR__ . '/Bundle/CookieBundle/');
 $loader->register();
 
 class SwagCookieConsentManager extends Plugin

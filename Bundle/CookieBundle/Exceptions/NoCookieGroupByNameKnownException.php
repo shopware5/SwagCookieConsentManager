@@ -22,7 +22,7 @@
  * our trademarks remain entirely with us.
  */
 
-namespace SwagCookieConsentManager\Bundle\CookieBundle\Exceptions;
+namespace Shopware\Bundle\CookieBundle\Exceptions;
 
 class NoCookieGroupByNameKnownException extends \Exception
 {
