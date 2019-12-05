@@ -24,7 +24,7 @@
 
 namespace Shopware\Bundle\CookieBundle\Structs;
 
-use SwagCookieConsentManager\Bundle\CookieBundle\CookieCollection;
+use Shopware\Bundle\CookieBundle\CookieCollection;
 
 class CookieGroupStruct implements \JsonSerializable
 {

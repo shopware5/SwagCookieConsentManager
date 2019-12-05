@@ -22,12 +22,12 @@
  * our trademarks remain entirely with us.
  */
 
-namespace SwagCookieConsentManager\Bundle\CookieBundle\Services;
+namespace Shopware\Bundle\CookieBundle\Services;
 
-use SwagCookieConsentManager\Bundle\CookieBundle\CookieCollection;
-use SwagCookieConsentManager\Bundle\CookieBundle\CookieGroupCollection;
-use SwagCookieConsentManager\Bundle\CookieBundle\Exceptions\InvalidCookieGroupItemException;
-use SwagCookieConsentManager\Bundle\CookieBundle\Exceptions\InvalidCookieItemException;
+use Shopware\Bundle\CookieBundle\CookieCollection;
+use Shopware\Bundle\CookieBundle\CookieGroupCollection;
+use Shopware\Bundle\CookieBundle\Exceptions\InvalidCookieGroupItemException;
+use Shopware\Bundle\CookieBundle\Exceptions\InvalidCookieItemException;
 use Shopware\Bundle\CookieBundle\Structs\CookieGroupStruct;
 use Shopware\Bundle\CookieBundle\Structs\CookieStruct;
 
