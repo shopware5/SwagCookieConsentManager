@@ -19,11 +19,11 @@ class Uninstaller
     private $connection;
 
     /**
-     * @var string
+     * @var bool
      */
     private $isShopware563;
 
-    public function __construct(UninstallContext $installContext, Connection $connection, string $isShopware563)
+    public function __construct(UninstallContext $installContext, Connection $connection, bool $isShopware563)
     {
         $this->installContext = $installContext;
         $this->connection = $connection;
