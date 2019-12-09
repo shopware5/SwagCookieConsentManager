@@ -19,7 +19,7 @@ class Uninstaller
     private $connection;
 
     /**
-     * @var string
+     * @var bool
      */
     private $isShopware563;
 
