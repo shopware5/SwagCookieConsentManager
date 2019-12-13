@@ -5,17 +5,32 @@
     <label lang="de">Cookie Consent Manager</label>
     <label lang="en">Cookie Consent Manager</label>
 
-    <version>1.2.2</version>
+    <version>1.2.3</version>
     <copyright>(c) by shopware AG</copyright>
     <author>shopware AG</author>
     <link>http://store.shopware.com</link>
     <compatibility minVersion="5.3.5" maxVersion="5.3.7"/>
 
     <changelog version="1.2.1">
-        Changed namespace from `CookieCollection` and `CookieGroupCollection` to `\Shopware\Bundle\CookieBundle\`
+        <changes lang="de">Namespace von `CookieCollection` und `CookieGroupCollection` auf `\Shopware\Bundle\CookieBundle\` geändert</changes>
+        <changes lang="en">Changed namespace from `CookieCollection` and `CookieGroupCollection` to `\Shopware\Bundle\CookieBundle\`</changes>
     </changelog>
 
     <changelog version="1.2.2">
-        Changed shop cookie regex in `CookieCollector`
+        <changes lang="de">Shop Cookie Regex in `CookieCollector` geändert</changes>
+        <changes lang="en">Changed shop cookie regex in `CookieCollector`</changes>
+    </changelog>
+
+    <changelog version="1.2.3">
+        <changes lang="de">
+            - Alle technisch notwendigen Cookies zählen nun immer als aktiv
+            - "slt" Cookie von dieser Version entfernt
+            - Sortierung der Cookies hinzugefügt
+        </changes>
+        <changes lang="en">
+            - All technically necessary cookies are now always active
+            - Remove "slt" cookie from this version
+            - Added sorting of cookies
+        </changes>
     </changelog>
 </plugin>

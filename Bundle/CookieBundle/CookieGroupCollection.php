@@ -67,7 +67,7 @@ class CookieGroupCollection extends ArrayCollection implements \JsonSerializable
     /**
      * @param string $groupName
      *
-     * @return CookieStruct
+     * @return CookieGroupStruct
      * @throws NoCookieGroupByNameKnownException
      */
     public function getGroupByName($groupName)
