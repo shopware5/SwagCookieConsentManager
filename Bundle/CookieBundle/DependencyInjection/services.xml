@@ -8,6 +8,7 @@
         <service id="swag_cookie_consent_manager_bundle_cookie.services.cookie_collector" class="Shopware\Bundle\CookieBundle\Services\CookieCollector">
             <argument id="events" type="service" />
             <argument id="snippets" type="service" />
+            <argument id="config" type="service" />
         </service>
 
         <service id="swag_cookie_consent_manager_bundle_cookie.services.cookie_handler" class="Shopware\Bundle\CookieBundle\Services\CookieHandler">
