@@ -106,6 +106,14 @@
             cookieActiveInputSelector: '.cookie-consent--cookie-state-input',
 
             /**
+             * Selector of the label element for the active input.
+             *
+             * @property cookieActiveInputLabelSelector
+             * @type {String}
+             */
+            cookieActiveInputLabelSelector: '.cookie-consent--cookie-state',
+
+            /**
              * Selector of the button which should save the configured preferences.
              *
              * @property saveButtonSelector
@@ -120,6 +128,22 @@
              * @type {string}
              */
             openConsentManagerButton: '*[data-openConsentManager=true]',
+
+            /**
+             * Selector of the element which can be clicked as well to toggle a cookies state.
+             *
+             * @property cookieLabelSelector
+             * @type {string}
+             */
+            cookieLabelSelector: '.cookie--label',
+
+            /**
+             * The class which marks a group as "required".
+             *
+             * @property requiredClass
+             * @type {string}
+             */
+            requiredClass: 'cookie-consent--required'
         },
 
         /**
@@ -166,8 +190,17 @@
             this.$el.find(this.opts.cookieGroupToggleInputSelector).on('change', $.proxy(this.onGroupToggleChanged, this));
             this.$el.find(this.opts.cookieActiveInputSelector).on('change', $.proxy(this.onCookieToggleChanged, this));
             this.$el.find(this.opts.saveButtonSelector).on('click', $.proxy(this.onSave, this));
+            this.$el.find(this.opts.cookieLabelSelector).on('click', $.proxy(this.onClickCookieName, this));
 
             this._on(this.opts.openConsentManagerButton, 'click', $.proxy(this.openConsentManager, this));
+        },
+
+        onClickCookieName: function (event) {
+            var cookieNameEl = $(event.currentTarget),
+                cookieCt = cookieNameEl.parent(this.opts.cookieContainerSelector),
+                inputEl = cookieCt.find(this.opts.cookieActiveInputSelector);
+
+            inputEl.click();
         },
 
         assignCookieData: function () {
@@ -183,20 +216,22 @@
             var me = this,
                 groupNames = Object.keys(this.preferences['groups']),
                 group,
+                groupRequired,
                 cookieNames,
                 cookie;
 
             $.each(groupNames, function (groupIndex, groupName) {
                 group = me.findGroupByName(groupName);
-                me.toggleGroup(group, me.preferences['groups'][groupName].active);
+                groupRequired = group.find(me.opts.cookieActiveInputLabelSelector).hasClass(me.opts.requiredClass);
+                me.toggleGroup(group, groupRequired || me.preferences['groups'][groupName].active);
 
                 cookieNames = Object.keys(me.preferences['groups'][groupName].cookies);
 
                 $.each(cookieNames, function (cookieIndex, cookieName) {
                     cookie = me.findCookieByName(cookieName);
-                    me.toggleCookie(cookie, me.preferences['groups'][groupName].cookies[cookieName].active);
+                    me.toggleCookie(cookie, groupRequired || me.preferences['groups'][groupName].cookies[cookieName].active);
 
-                    me.checkActiveStateForAllCookiesOfGroup(group, me.preferences['groups'][groupName].cookies[cookieName].active);
+                    me.checkActiveStateForAllCookiesOfGroup(group, groupRequired || me.preferences['groups'][groupName].cookies[cookieName].active);
                 })
             });
         },
