@@ -75,7 +75,8 @@ class CookieHandler implements CookieHandlerInterface
                     continue;
                 }
 
-                return $cookie['active'];
+                $cookieGroupStruct = $this->cookieCollector->collectCookieGroups()->getGroupByName($cookieGroup['name']);
+                return $cookieGroupStruct->isRequired() ?: $cookie['active'];
             }
         }
 
