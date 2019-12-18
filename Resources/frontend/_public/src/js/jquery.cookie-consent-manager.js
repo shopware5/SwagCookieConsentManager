@@ -214,7 +214,7 @@
 
         parsePreferences: function () {
             var me = this,
-                groupNames = Object.keys(this.preferences['groups']),
+                groupNames = Object.keys(me.preferences['groups']),
                 group,
                 groupRequired,
                 cookieNames,
@@ -416,7 +416,7 @@
         },
 
         getBasePath: function () {
-            return window.csrfConfig.basePath || '/';
+            return window.csrfConfig.basePath + '/' || '/';
         }
     });
 
