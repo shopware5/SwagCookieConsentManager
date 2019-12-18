@@ -26,11 +26,13 @@
             - Alle technisch notwendigen Cookies zählen nun immer als aktiv
             - Gruppe von "slt" Cookie geändert
             - Sortierung der Cookies hinzugefügt
+            - Validitäts Check von den Cookie Einstellungen hinzugefügt
         </changes>
         <changes lang="en">
             - All technically necessary cookies are now always active
             - Changed cookie group of the SLT cookie
             - Added sorting of cookies
+            - Added validity check of cookie preferences
         </changes>
     </changelog>
 </plugin>
