@@ -26,8 +26,10 @@ namespace SwagCookieConsentManager\Subscriber;
 
 use Enlight\Event\SubscriberInterface;
 use Enlight_Controller_Request_RequestHttp as Request;
+use Shopware\Bundle\CookieBundle\Structs\CookieStruct;
 use Shopware_Components_Config as Config;
 use Enlight_Controller_Response_ResponseHttp as Response;
+use Shopware\Bundle\CookieBundle\CookieCollection;
 use Shopware\Bundle\CookieBundle\CookieGroupCollection;
 use Shopware\Bundle\CookieBundle\Services\CookieHandler;
 use Shopware\Bundle\CookieBundle\Services\CookieHandlerInterface;
@@ -118,6 +120,7 @@ class RemoveCookies implements SubscriberInterface
         }
 
         $preferences = json_decode($preferences, true);
+        $preferences = $this->removeInvalidCookiesFromPreferences($request, $preferences);
 
         $this->removeCookies($request, $response, function (string $cookieName) use ($preferences) {
             return $this->cookieHandler->isCookieAllowedByPreferences($cookieName, $preferences);
@@ -165,6 +168,43 @@ class RemoveCookies implements SubscriberInterface
                 $response->headers->setCookie(new Cookie($cookieKey, null, 0, $currentPathWithoutSlash));
             }
         }
+    }
+
+    private function removeInvalidCookiesFromPreferences(Request $request, array $preferences): array
+    {
+        $allowedCookies = $this->cookieHandler->getCookies();
+
+        foreach ($preferences['groups'] as $group) {
+            foreach ($group['cookies'] as $cookie) {
+                $cookieCollection = $allowedCookies->getGroupByName($group['name'])->getCookies();
+
+                if ($this->hasCookieWithTechnicalName($cookieCollection, $cookie['name'])) {
+                    continue;
+                }
+
+                unset($preferences['groups'][$group['name']]['cookies'][$cookie['name']]);
+                $this->setNewPreferencesCookie($request, $preferences);
+            }
+        }
+
+        return $preferences;
+    }
+
+    private function hasCookieWithTechnicalName(CookieCollection $cookieCollection, string $technicalName): bool
+    {
+        return $cookieCollection->exists(static function ($key, CookieStruct $cookieStruct) use ($technicalName) {
+            return $cookieStruct->getName() === $technicalName;
+        });
+    }
+
+    private function setNewPreferencesCookie(Request $request, array $preferences): void
+    {
+        $expire = new \DateTime();
+        $expire->modify('+180 day');
+
+        // We cannot use Symfony's cookie here, since we're not making use of the "raw" property in this version yet.
+        // Also using `setrawcookie` does not work here, since you can't use a comma with `setrawcookie`, which we need for json to work properly
+        header('Set-Cookie: cookiePreferences=' . json_encode($preferences) . '; expires=' . gmdate('D, d-M-Y H:i:s T', $expire->getTimestamp()) . '; path=' . $request->getBasePath() . '/');
     }
 
     private function convertToArray(CookieGroupCollection $cookieGroupCollection): array
